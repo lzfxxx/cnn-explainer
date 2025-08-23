@@ -43,6 +43,55 @@ npm run dev
 
 Navigate to [localhost:3000](https://localhost:3000). You should see CNN Explainer running in your broswer :)
 
+## Docker Deployment
+
+You can also run CNN Explainer using Docker with nginx proxy:
+
+### Building the Docker Image
+
+```bash
+# Build for x86 platform (if you're on M1 Mac)
+docker build --platform linux/amd64 -t cnn-explainer .
+
+# Or build for your current platform
+docker build -t cnn-explainer .
+```
+
+### Running with Docker Compose
+
+The project includes a complete Docker Compose setup with nginx reverse proxy:
+
+```bash
+docker-compose up
+```
+
+This will:
+- Build and run the CNN Explainer application container
+- Start an nginx reverse proxy container
+- Make the application available at [localhost:8080/cnn-explainer/](http://localhost:8080/cnn-explainer/)
+
+### Manual Docker Run
+
+If you prefer to run just the application container:
+
+```bash
+docker run -p 5000:5000 cnn-explainer
+```
+
+Navigate to [localhost:5000](http://localhost:5000) to access the application.
+
+### Pushing to Registry
+
+To push the image to a container registry:
+
+```bash
+# Tag the image
+docker tag cnn-explainer registry.example.com/your-namespace/cnn-explainer
+
+# Push to registry
+docker push registry.example.com/your-namespace/cnn-explainer
+```
+
 To see how we trained the CNN, visit the directory [`./tiny-vgg/`](tiny-vgg).
 If you want to use CNN Explainer with your own CNN model or image classes, see [#8](/../../issues/8) and [#14](/../../issues/14).
 

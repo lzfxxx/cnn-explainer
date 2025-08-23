@@ -1,0 +1,20 @@
+services:
+  cnn-explainer:
+    image: registry.cn-hangzhou.aliyuncs.com/momodel/cnn-explainer
+    networks:
+      - cnn-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - cnn-explainer
+    networks:
+      - cnn-network
+
+networks:
+  cnn-network:
+    driver: bridge
