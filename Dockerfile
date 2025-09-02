@@ -15,11 +15,9 @@ COPY . .
 
 # Build the application and prepare dist directory
 RUN npm run build && \
+    node fix-path.js && \
     mkdir -p ./dist && \
-    cp -r ./public/assets ./dist && \
-    cp -r ./public/bundle* ./dist && \
-    cp -r ./public/global.css ./dist && \
-    cp ./public/index.html ./dist
+    cp -r ./public/* ./dist/
 
 # Expose port 5000 (sirv default port)
 EXPOSE 5000
